@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>🔍 Test TXT</h1>
+
+<input type="text" id="search" placeholder="Mot">
+<br><br>
+
+<input type="file" id="fileInput" accept=".txt">
+<br><br>
+
+<button onclick="cherche()">Rechercher</button>
+
+<div id="result"></div>
+
+<script>
+function cherche() {
+    let mot = document.getElementById("search").value.toLowerCase();
+    let fichier = document.getElementById("fileInput").files[0];
+
+    if (!fichier) {
+        alert("Choisis un fichier");
+        return;
+    }
+
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+        let texte = e.target.result.toLowerCase();
+
+        if (texte.includes(mot)) {
+            document.getElementById("result").innerHTML = "✅ trouvé";
+        } else {
+            document.getElementById("result").innerHTML = "❌ pas trouvé";
+        }
+    };
+
+    reader.readAsText(fichier);
+}
+</script>
+
+</body>
+</html>
